@@ -1,0 +1,46 @@
+<!-- Validation failure messages -->
+<% if @going.errors.any? %>
+  <% @going.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="page-header">
+  <h3>Edit Going #<%= @going.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form action="/update_going/<%= @going.id %>" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for user_id -->
+      <div class="form-group">
+        <label for="user_id" class="control-label">
+          User
+        </label>
+
+        <input type="text" id="user_id" name="user_id" placeholder="User" class="form-control" value="<%= @going.user_id %>">
+      </div>
+
+      <!-- Label and input for trek_id -->
+      <div class="form-group">
+        <label for="trek_id" class="control-label">
+          Trek
+        </label>
+
+        <input type="text" id="trek_id" name="trek_id" placeholder="Trek" class="form-control" value="<%= @going.trek_id %>">
+      </div>
+
+      <button class="btn btn-warning">
+        Update Going
+      </button>
+      or
+      <a href="/goings/<%= @going.id %>">Cancel</a>
+    </form>
+  </div>
+</div>

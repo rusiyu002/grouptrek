@@ -1,0 +1,91 @@
+<!-- Validation failure messages -->
+<% if @trek.errors.any? %>
+  <% @trek.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="page-header">
+  <h3>Edit Trek #<%= @trek.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form action="/update_trek/<%= @trek.id %>" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for destination -->
+      <div class="form-group">
+        <label for="destination" class="control-label">
+          Destination
+        </label>
+
+        <input type="text" id="destination" name="destination" placeholder="Destination" class="form-control" value="<%= @trek.destination %>">
+      </div>
+
+      <!-- Label and input for start_date -->
+      <div class="form-group">
+        <label for="start_date" class="control-label">
+          Start date
+        </label>
+
+        <input type="text" id="start_date" name="start_date" placeholder="Start date" class="form-control" value="<%= @trek.start_date %>">
+      </div>
+
+      <!-- Label and input for end_date -->
+      <div class="form-group">
+        <label for="end_date" class="control-label">
+          End date
+        </label>
+
+        <input type="text" id="end_date" name="end_date" placeholder="End date" class="form-control" value="<%= @trek.end_date %>">
+      </div>
+
+      <!-- Label and input for description -->
+      <div class="form-group">
+        <label for="description" class="control-label">
+          Description
+        </label>
+
+        <textarea id="description" name="description" placeholder="Description" class="form-control" rows="3"><%= @trek.description %></textarea>
+      </div>
+
+      <!-- Label and input for user_id -->
+      <div class="form-group">
+        <label for="user_id" class="control-label">
+          User
+        </label>
+
+        <input type="text" id="user_id" name="user_id" placeholder="User" class="form-control" value="<%= @trek.user_id %>">
+      </div>
+
+      <!-- Label and input for image -->
+      <div class="form-group">
+        <label for="image" class="control-label">
+          Image
+        </label>
+
+        <input type="text" id="image" name="image" placeholder="Image" class="form-control" value="<%= @trek.image %>">
+      </div>
+
+      <!-- Label and input for days_to_go -->
+      <div class="form-group">
+        <label for="days_to_go" class="control-label">
+          Days to go
+        </label>
+
+        <input type="text" id="days_to_go" name="days_to_go" placeholder="Days to go" class="form-control" value="<%= @trek.days_to_go %>">
+      </div>
+
+      <button class="btn btn-warning">
+        Update Trek
+      </button>
+      or
+      <a href="/treks/<%= @trek.id %>">Cancel</a>
+    </form>
+  </div>
+</div>
