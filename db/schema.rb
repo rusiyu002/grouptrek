@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 20170601224721) do
     t.string   "occupation"
     t.string   "gender"
     t.string   "name"
+    t.string   "username"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.index ["email"], name: "index_users_on_email", unique: true

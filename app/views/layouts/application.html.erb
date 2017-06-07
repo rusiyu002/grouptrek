@@ -40,17 +40,31 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li><a href="/comments">Comments</a></li>
-          <li><a href="/goings">Goings</a></li>
-          <li><a href="/interesteds">Interesteds</a></li>
-          <li><a href="/treks">Treks</a></li>
+          <!-- <li><a href="/comments"><i class="fa fa-fw fa-file-photo-o"></i><span class="hidden-sm">All Comments</span></a></li> -->
+          <li><a href="/goings"><i class="fa fa-calendar-check-o"></i><span class="hidden-sm">I'm Going</span></a></li>
+          <li><a href="/interesteds"><i class="fa fa-bookmark-o"></i><span class="hidden-sm">My Bookmarks</span></a></li>
+          <li><a href="/treks"><i class="fa fa-fw fa-file-photo-o"></i><span class="hidden-sm">All Treks</span></a></li>
+          <li><a href="/users"><i class="fa fa-fw fa-users"></i><span class="hidden-sm">All Users</span></a</li>
           <li><a href="/rails/info">Sitemap</a></li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="/users/edit">Dummy Edit Profile Link</a></li>
-          <li><a href="/users/sign_out" data-method="delete" rel="nofollow">Dummy Sign Out Link</a></li>
+          <% if current_user.present? %>
+          <!-- <li><a href="/users/edit"><%=current_user.username%></a></li> -->
+          <li><a href="/users/edit">
+            <i class="fa fa-fw fa-edit"></i>
+            <%=current_user.username%>
+          </a></li>
+          <li><a href="/users/sign_out" data-method="delete" rel="nofollow">
+            <i class="fa fa-fw fa-sign-out"></i>
+            Sign Out
+          </a></li>
+          <% else %>
+          <li><a href="/users/sign_up">Sign Up</a></li>s
+          <li><a href="/users/sign_in">Sign In</a></li>
+          <% end %>
         </ul>
+
       </div><!-- /.navbar-collapse -->
     </div>
   </nav>
@@ -73,4 +87,25 @@
     <%= yield %>
   </div>
 </body>
+
+<div class="card card-link-list">
+  <div class="card-block">
+    © 2017 GroupTrek
+
+    <a href="#">About</a>
+    <a href="#">Help</a>
+    <a href="#">Terms</a>
+    <a href="#">Privacy</a>
+    <a href="#">Cookies</a>
+    <a href="#">Ads </a>
+    <a href="#">Info</a>
+    <a href="#">Brand</a>
+    <a href="#">Blog</a>
+    <a href="#">Status</a>
+    <a href="#">Apps</a>
+    <a href="#">Jobs</a>
+    <a href="#">Advertise</a>
+  </div>
+</div>
+
 </html>

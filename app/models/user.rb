@@ -12,7 +12,7 @@ class User < ApplicationRecord
   has_many :interested_treks, :through => :interesteds, :source => :trek
   has_many :going_trek, :through => :goings, :source => :trek
 
-  validates :name, :presence => true
-  validates :name, :uniqueness => true
-  
+#  validates :name, :presence => true
+#  validates :name, :uniqueness => true
+
 end

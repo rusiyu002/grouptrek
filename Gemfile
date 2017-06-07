@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem "devise"
 gem "starter_generators", :git => "https://github.com/raghubetina/starter_generators"
-
+gem 'bcrypt', platforms: :ruby
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
