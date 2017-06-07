@@ -16,23 +16,125 @@
       <div class="row">
        <div class="col-md-8 col-md-offset-2">
          <div class="panel panel-default">
-         <div class="panel-heading">
+        <div class="panel-heading">
          <h3 class="panel-title">
+           <%= link_to trek.user.username, "/users/#{trek.user.id}" %>
+           <small>
+             <%= time_ago_in_words(trek.created_at) %> ago
+           </small>
+        </h3>
+        </div>
 
-        <td><%= trek.destination %></td>
-        <td><%= trek.start_date %></td>
-        <td><%= trek.end_date %></td>
+        <div class="panel-body">
+        <h4><%= trek.destination %></h4>
         <td><%= trek.description %></td>
-        <td><%= trek.user.username %></td>
         <td><img src="<%= trek.image %>" class="col-md-12"></td>
-        <td><%= trek.days_to_go %></td>
+
+        <ul class='trek-overview'>
+            <li>
+               <span class='title'>Status: </span>
+               <span class='value'>
+                 <% if trek.start_date > Date.today %>
+                    <i class="fa fa-heart"></i>
+                    Active!!
+                    <a href="/treks/<%=trek.id%>">See the details</a>
+                 <% else%>
+                    Closed
+                 <% end %>
+               </span>
+             </li>
+              <li>
+                <span class='title'>Start Date: </span>
+                <span class='value'><%= trek.start_date %></span>
+              </li>
+              <li>
+                  <span class='title'>End Date: </span>
+                  <span class='value'>  <td><%= trek.end_date %></td></span>
+              </li>
+              <li>
+                <span class='title'>Days to go: </span>
+                <span class='value'>  <td><%= trek.days_to_go %></td></span>
+              </li>
+              <div class="clear"></div>
+        </ul>
+
+        <p>
+              <% like = Interested.find_by(:trek_id => trek.id, :user_id => current_user.id) %>
+                  <% if like.present? %>
+                    <a href="/delete_like/<%= like.id %>" class="btn btn-link">
+                      <i class="fa fa-heart"></i>
+                    </a>
+                    <% if trek.interested_users.any? %>
+                    <%= trek.interested_users.pluck(:username).to_sentence %>
+                    <%= trek.interested_users.many? ? "like" : "likes" %>
+                    this
+                    <% end %>
+                  <% else %>
+                    <form action="/create_interested" method="post">
+                      <!-- Hidden input for authenticity token to protect from forgery -->
+                      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+                      <input type="hidden" name="trek_id" value="<%= trek.id %>">
+
+                      <input type="hidden" name="user_id" value="<%= current_user.id %>">
+
+                      <button class="btn btn-link">
+                        <i class="fa fa-heart-o"></i>
+                      </button>
+
+                      <% if trek.interested_users.any? %>
+                      <%= trek.interested_users.pluck(:username).to_sentence %>
+                      <%= trek.interested_users.many? ? "like" : "likes" %>
+                      this
+                      <% else %>
+                      <small class="text-muted">be the first to like this</small>
+                      <% end %>
+                    </form>
+                  <% end %>
+                </p>
+
+
+                <% like = Interested.find_by(:trek_id => trek.id, :user_id => current_user.id) %>
+                    <% if like.present? %>
+                      <a href="/delete_like/<%= like.id %>" class="btn btn-link">
+                        <i class="fa fa-heart"></i>
+                      </a>
+                      <% if trek.interested_users.any? %>
+                      <%= trek.interested_users.pluck(:username).to_sentence %>
+                      <%= trek.interested_users.many? ? "like" : "likes" %>
+                      this
+                      <% end %>
+                    <% else %>
+                      <form action="/create_interested" method="post">
+                        <!-- Hidden input for authenticity token to protect from forgery -->
+                        <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+                        <input type="hidden" name="trek_id" value="<%= trek.id %>">
+
+                        <input type="hidden" name="user_id" value="<%= current_user.id %>">
+
+                        <button class="btn btn-link">
+                          <i class="fa fa-heart-o"></i>
+                        </button>
+
+                        <% if trek.interested_users.any? %>
+                        <%= trek.interested_users.pluck(:username).to_sentence %>
+                        <%= trek.interested_users.many? ? "like" : "likes" %>
+                        this
+                        <% else %>
+                        <small class="text-muted">be the first to like this</small>
+                        <% end %>
+                      </form>
+                    <% end %>
+                  </p>
+
+        <% if current_user.id == trek.user_id%>
         <td>
-          <a href="/treks/<%= trek.id %>" class="btn btn-primary">Show</a>
           <a href="/treks/<%= trek.id %>/edit" class="btn btn-warning">Edit</a>
           <a href="/delete_trek/<%= trek.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
         </td>
+        <% end %>
 
-    </h3>
        </div>
        </div>
       </div>

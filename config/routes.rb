@@ -68,6 +68,12 @@ Rails.application.routes.draw do
   get "/delete_trek/:id", :controller => "treks", :action => "destroy"
   #------------------------------
 
+  # Routes for the Join resource:
+  # CREATE
+  get "/join/new", :controller => "joins", :action => "new"
+  post "/create_join", :controller => "joins", :action => "create"
+  #-----------------------------
+
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   # Routes for the User resource:
