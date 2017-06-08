@@ -8,9 +8,9 @@ Trek status are based on the number of participants and start date
 * active
 * closed
 
-Users can
-* See details
-* Interested (bookmark)
-* Going (join the trek)
-* Comment
-a certain trek, but can only delete/edit the trek posted by themselves.
+Users can only delete/edit the trek posted by themselves, but any user can
+* click Interested to bookmark a trek
+* click Going to join a trek
+* make Comments to a trek
+
+Basic user authentication functions are also provided. Users can edit their profile.
