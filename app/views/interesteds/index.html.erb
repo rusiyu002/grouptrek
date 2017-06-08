@@ -16,8 +16,8 @@
 
       <% @interesteds.each do |interested| %>
       <tr>
-        <td><%= interested.user_id %></td>
-        <td><%= interested.trek_id %></td>
+        <td><%= interested.user.username %></td>
+        <td><%= interested.trek.destination %></td>
         <td>
           <a href="/interesteds/<%= interested.id %>" class="btn btn-primary">Show</a>
           <a href="/interesteds/<%= interested.id %>/edit" class="btn btn-warning">Edit</a>

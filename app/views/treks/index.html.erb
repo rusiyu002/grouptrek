@@ -62,12 +62,12 @@
               <% like = Interested.find_by(:trek_id => trek.id, :user_id => current_user.id) %>
                   <% if like.present? %>
                     <a href="/delete_like/<%= like.id %>" class="btn btn-link">
-                      <i class="fa fa-heart"></i>
+                      <i class="fa fa-bookmark"></i>
                     </a>
                     <% if trek.interested_users.any? %>
                     <%= trek.interested_users.pluck(:username).to_sentence %>
-                    <%= trek.interested_users.many? ? "like" : "likes" %>
-                    this
+                    <%= trek.interested_users.many? ? "are" : "is" %>
+                    interested in this
                     <% end %>
                   <% else %>
                     <form action="/create_interested" method="post">
@@ -79,7 +79,7 @@
                       <input type="hidden" name="user_id" value="<%= current_user.id %>">
 
                       <button class="btn btn-link">
-                        <i class="fa fa-heart-o"></i>
+                        <i class="fa fa-bookmark-o"></i>
                       </button>
 
                       <% if trek.interested_users.any? %>
@@ -87,25 +87,24 @@
                       <%= trek.interested_users.many? ? "like" : "likes" %>
                       this
                       <% else %>
-                      <small class="text-muted">be the first to like this</small>
+                      <small class="text-muted">be the first interested in this trek</small>
                       <% end %>
                     </form>
                   <% end %>
-                </p>
-
-
-                <% like = Interested.find_by(:trek_id => trek.id, :user_id => current_user.id) %>
+              </p>
+              <p>
+                <% like = Going.find_by(:trek_id => trek.id, :user_id => current_user.id) %>
                     <% if like.present? %>
                       <a href="/delete_like/<%= like.id %>" class="btn btn-link">
-                        <i class="fa fa-heart"></i>
+                        <i class="fa fa-calendar-check-o"></i>
                       </a>
                       <% if trek.interested_users.any? %>
                       <%= trek.interested_users.pluck(:username).to_sentence %>
-                      <%= trek.interested_users.many? ? "like" : "likes" %>
-                      this
+                      <%= trek.interested_users.many? ? "are" : "is" %>
+                      going
                       <% end %>
                     <% else %>
-                      <form action="/create_interested" method="post">
+                      <form action="/create_going" method="post">
                         <!-- Hidden input for authenticity token to protect from forgery -->
                         <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
@@ -114,19 +113,60 @@
                         <input type="hidden" name="user_id" value="<%= current_user.id %>">
 
                         <button class="btn btn-link">
-                          <i class="fa fa-heart-o"></i>
+                          <i class="fa fa-calendar-check-o"></i>
                         </button>
 
-                        <% if trek.interested_users.any? %>
-                        <%= trek.interested_users.pluck(:username).to_sentence %>
-                        <%= trek.interested_users.many? ? "like" : "likes" %>
-                        this
+                        <% if trek.participants.any? %>
+                        <%= trek.participants.pluck(:username).to_sentence %>
+                        going to this
                         <% else %>
-                        <small class="text-muted">be the first to like this</small>
+                        <small class="text-muted">be the first to join this trek</small>
                         <% end %>
                       </form>
                     <% end %>
-                  </p>
+          </p>
+
+          <% trek.comments.each do |comment| %>
+          <p class="media">
+            <div class="media-body">
+              <h6 class="media-heading">
+                <%= link_to comment.user.username, "/users/#{comment.user.id}" %>
+                <small>
+                  <%= time_ago_in_words(comment.created_at) %> ago
+                  <% if comment.user == current_user %>
+                    <a href="/delete_comment/<%= comment.id %>">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                  <% end %>
+                </small>
+              </h6>
+              <%= comment.body %>
+            </div>
+          </p>
+          <% end %>
+
+          <p class="media">
+            <div class="media-body">
+              <form action="/create_comment" method="post">
+                <!-- Hidden input for authenticity token to protect from forgery -->
+                <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+                <input type="hidden" name="trek_id" value="<%= trek.id %>">
+
+                <input type="hidden" name="user_id" value="<%= current_user.id %>">
+
+                <!-- Label and input for body -->
+                <div class="form-group">
+                  <label for="body" class="sr-only">
+                    Body
+                  </label>
+
+                  <input type="text" id="body" name="body" placeholder="Add a comment..." class="form-control" required>
+                </div>
+              </form>
+            </div>
+          </p>
+
 
         <% if current_user.id == trek.user_id%>
         <td>
@@ -140,11 +180,3 @@
       </div>
       </div>
 <% end %>
-
-
-
-
-
-    <!-- </table>
-  </div>
-</div> -->

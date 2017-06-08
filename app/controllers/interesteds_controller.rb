@@ -1,7 +1,7 @@
 class InterestedsController < ApplicationController
   def index
-    @interesteds = Interested.all
-
+    # @interesteds = Interested.all
+    @interesteds = current_user.interesteds
     render("interesteds/index.html.erb")
   end
 

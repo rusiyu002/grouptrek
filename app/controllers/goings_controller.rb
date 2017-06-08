@@ -1,7 +1,7 @@
 class GoingsController < ApplicationController
   def index
-    @goings = Going.all
-
+    # @goings = Going.all
+    @goings = current_user.goings
     render("goings/index.html.erb")
   end
 

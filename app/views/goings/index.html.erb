@@ -11,13 +11,17 @@
       <tr>
         <th>User</th>
         <th>Trek</th>
+        <th>Departure</th>
+        <th>Trek leader </th>
         <th>Actions</th>
       </tr>
 
       <% @goings.each do |going| %>
       <tr>
-        <td><%= going.user_id %></td>
-        <td><%= going.trek_id %></td>
+        <td><%= going.user.username %></td>
+        <td><%= going.trek.destination %></td>
+        <td><%=going.trek.start_date%>
+          <td><%=going.trek.user.username%>
         <td>
           <a href="/goings/<%= going.id %>" class="btn btn-primary">Show</a>
           <a href="/goings/<%= going.id %>/edit" class="btn btn-warning">Edit</a>
