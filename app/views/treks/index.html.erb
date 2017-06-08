@@ -1,5 +1,6 @@
 <div class="page-header">
   <h1> All Treks </h1>
+  <h4> Explore new countries with like-minded friends</h4>
 </div>
 
 <div class="container">
@@ -61,7 +62,7 @@
         <p>
               <% like = Interested.find_by(:trek_id => trek.id, :user_id => current_user.id) %>
                   <% if like.present? %>
-                    <a href="/delete_like/<%= like.id %>" class="btn btn-link">
+                    <a href="/delete_interested/<%= like.id %>" class="btn btn-link">
                       <i class="fa fa-bookmark"></i>
                     </a>
                     <% if trek.interested_users.any? %>
@@ -95,7 +96,7 @@
               <p>
                 <% like = Going.find_by(:trek_id => trek.id, :user_id => current_user.id) %>
                     <% if like.present? %>
-                      <a href="/delete_like/<%= like.id %>" class="btn btn-link">
+                      <a href="/delete_going/<%= like.id %>" class="btn btn-link">
                         <i class="fa fa-calendar-check-o"></i>
                       </a>
                       <% if trek.interested_users.any? %>
